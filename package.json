@@ -1,0 +1,10 @@
+{
+    "name": "galaxy-generator",
+    "version": "0.0.1",
+    "author": "John Charles Bauschatz <john.bauschatz@my.wheaton.edu>",
+    "dependencies": {
+        "underscore-node": "0.1.x",
+        "string": "1.8.x",
+        "darmok": "0.1.x"
+    }
+}
