@@ -19,9 +19,23 @@ var Generator = function(darmok) {
         return this.generate(pattern.options[index]);
     }
 
+    this.generateWeighted = function(pattern) {
+        var weightSum = 0;
+        for (var i = 0; i<pattern.options.length; ++i)
+            weightSum += pattern.options[i].weight;
+
+        var weighted = Math.random() * weightSum;
+        weightSum = 0;
+        for (var i = 0; i<pattern.options.length; ++i) {
+            weightSum += pattern.options[i].weight;
+            if (weighted < weightSum)
+                return pattern.options[i].value;
+        }
+    }
+
     this.generateArray = function(pattern) {
         var itemPattern = pattern.itemPattern;
-        var numItems = Math.floor(Math.random() * (pattern.max - pattern.min));
+        var numItems = Math.round(Math.random() * (pattern.max - pattern.min));
         var array = new Array(numItems);
         for (var i = 0; i<numItems; ++i) {
             array[i] = this.generate(itemPattern);
@@ -48,6 +62,8 @@ var Generator = function(darmok) {
                     return this.generateNumber(pattern);
                 case 'select':
                     return this.generateSelect(pattern);
+                case 'weighted':
+                    return this.generateWeighted(pattern);
                 case 'array':
                     return this.generateArray(pattern);
                 case 'darmok':

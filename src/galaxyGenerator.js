@@ -31,7 +31,14 @@ generator.addPattern('star', {
 });
 
 generator.addPattern('system', {
-    center: {type: 'select', options: ['star', 'blackHole', 'binaryStar']},
+    center: {
+        type: 'weighted',
+        options: [
+            {weight: 5, value: 'star'},
+            {weight: 1, value: 'blackHole'},
+            {weight: 1, value: 'binaryStar'},
+        ],
+    },
     bodies: {type: 'array', min: 0, max: 20, itemPattern: 'planet'},
 });
 
