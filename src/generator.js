@@ -11,7 +11,7 @@ var Generator = function(darmok) {
     }
 
     this.generateNumber = function(pattern) {
-        return pattern.min + Math.random() * (pattern.max - pattern.min);
+        return (pattern.min + Math.random() * (pattern.max - pattern.min)).toFixed(2);
     }
 
     this.generateSelect = function(pattern) {
