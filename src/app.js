@@ -1,4 +1,6 @@
 
-var generator = require('./galaxyGenerator');
+var galaxyGen = require('./galaxyGenerator');
+var shipGen = require('./shipGenerator');
 
-console.log(generator.generate('system'));
+console.log(galaxyGen.generate('system'));
+console.log(shipGen.generate('ship'));

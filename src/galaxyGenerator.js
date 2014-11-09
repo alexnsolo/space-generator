@@ -39,7 +39,7 @@ generator.addPattern('system', {
             {weight: 1, value: 'binaryStar'},
         ],
     },
-    bodies: {type: 'array', min: 0, max: 20, itemPattern: 'planet'},
+    bodies: {type: 'array', min: 0, max: 5, itemPattern: 'planet'},
 });
 
 generator.addPattern('blackHole', {

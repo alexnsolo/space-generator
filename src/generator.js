@@ -35,10 +35,21 @@ var Generator = function(darmok) {
 
     this.generateArray = function(pattern) {
         var itemPattern = pattern.itemPattern;
-        var numItems = Math.round(Math.random() * (pattern.max - pattern.min));
+        var numItems = pattern.min + Math.round(Math.random() * (pattern.max - pattern.min));
         var array = new Array(numItems);
         for (var i = 0; i<numItems; ++i) {
             array[i] = this.generate(itemPattern);
+        }
+        return array;
+    }
+
+    this.generateRepeat = function(pattern) {
+        var item = this.generate(pattern.itemPattern);
+        var numItems = pattern.min + Math.round(Math.random() * (pattern.max - pattern.min));
+        var array = new Array(numItems);
+
+        for (var i = 0; i<numItems; ++i) {
+            array[i] = item; // TODO deep-clone the item
         }
         return array;
     }
@@ -49,7 +60,16 @@ var Generator = function(darmok) {
             var customPattern = this.customPatterns[pattern];
             if (customPattern) {
                 var object = this.generate(customPattern);
-                object.type = pattern;
+
+                /*
+                 * Under normal circumstances a custom pattern represents a "type" of thing,
+                 * so we give the name of the pattern as the object's type.
+                 *
+                 * The exception is when a named pattern is a select, because the selected pattern
+                 * should determine the object's type
+                 */
+                if (customPattern.type != 'select')
+                    object.type = pattern;
                 return object;
             }
             return pattern;
@@ -66,6 +86,8 @@ var Generator = function(darmok) {
                     return this.generateWeighted(pattern);
                 case 'array':
                     return this.generateArray(pattern);
+                case 'repeat':
+                    return this.generateRepeat(pattern);
                 case 'darmok':
                     return this.generateDarmok(pattern);
             }
